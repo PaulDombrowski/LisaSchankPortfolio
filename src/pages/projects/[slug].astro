@@ -1,0 +1,120 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<Layout title={`${project.data.title} | Lisa Schank Portfolio`}>
+  <a class="close-project" href="/projects/" aria-label="Projekt schließen und zurück zur Übersicht">×</a>
+
+  <main>
+    <a class="back" href="/projects/">Zurück zur Übersicht</a>
+    <article>
+      <header>
+        <p class="meta">
+          {project.data.year && <span>{project.data.year}</span>}
+          {project.data.medium && <span>{project.data.medium}</span>}
+        </p>
+        <h1>{project.data.title}</h1>
+      </header>
+
+      <img src={project.data.cover ?? '/uploads/placeholder.svg'} alt={project.data.coverAlt ?? ''} />
+
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: min(900px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 36px 0 88px;
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 64px;
+    color: #5a625d;
+    text-decoration: none;
+  }
+
+  .back:hover {
+    text-decoration: underline;
+  }
+
+  .close-project {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    color: #111513;
+    font-size: 2.7rem;
+    font-weight: 500;
+    line-height: 0.8;
+    text-decoration: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.74);
+    transition: transform 0.22s ease, background 0.22s ease;
+  }
+
+  .close-project:hover {
+    background: #00d9ff;
+    transform: rotate(8deg) scale(1.04);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 16px;
+    color: #6f2f2a;
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0 0 32px;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    line-height: 1;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid #d0d0c8;
+    background: #dde6df;
+  }
+
+  .content {
+    max-width: 680px;
+    margin-top: 40px;
+    color: #3a4640;
+    font-size: 1.1rem;
+    line-height: 1.75;
+  }
+
+  @media (max-width: 700px) {
+    main {
+      width: min(100% - 28px, 900px);
+    }
+  }
+</style>

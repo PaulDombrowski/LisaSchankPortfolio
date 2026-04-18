@@ -1,0 +1,55 @@
+# Replace this repository value after the GitHub repo exists.
+backend:
+  name: github
+  repo: owner/repo
+  branch: main
+
+local_backend: true
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: pages
+    label: Pages
+    files:
+      - name: home
+        label: Home
+        file: src/content/pages/home.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Headline, name: headline, widget: string }
+          - { label: Intro, name: intro, widget: text, required: false }
+          - label: Hero Lines
+            name: heroLines
+            widget: list
+            summary: "{{fields.line}}"
+            field: { label: Line, name: line, widget: string }
+            required: false
+          - { label: Hero Marker 1, name: heroMark1, widget: string, required: false }
+          - { label: Hero Marker 2, name: heroMark2, widget: string, required: false }
+          - { label: Hero Marker 3, name: heroMark3, widget: string, required: false }
+          - { label: Body, name: body, widget: markdown, required: false }
+      - name: about
+        label: About
+        file: src/content/pages/about.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Headline, name: headline, widget: string }
+          - { label: Intro, name: intro, widget: text, required: false }
+          - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: projects
+    label: Projects
+    folder: src/content/projects
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Year, name: year, widget: number, required: false, value_type: int }
+      - { label: Medium, name: medium, widget: string, required: false }
+      - { label: Cover Image, name: cover, widget: image, required: false }
+      - { label: Cover Alt Text, name: coverAlt, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Sort Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Description, name: body, widget: markdown, required: false }

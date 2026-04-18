@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder image</title>
+  <desc id="desc">A simple placeholder for portfolio work.</desc>
+  <rect width="1200" height="900" fill="#d7e8e2"/>
+  <path d="M120 690 386 392l174 196 112-126 408 228H120Z" fill="#00d9ff"/>
+  <circle cx="860" cy="250" r="82" fill="#ff4f8b"/>
+</svg>

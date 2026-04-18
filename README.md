@@ -1,46 +1,61 @@
-# Astro Starter Kit: Basics
+# Lisa Schank Portfolio
+
+Astro site with React support, prepared for GitHub Pages deployment.
+
+## Commands
 
 ```sh
-npm create astro@latest -- --template basics
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Starts the local dev server at `localhost:4321`.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+npm run build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Builds the production site to `./dist/`.
 
-## 🧞 Commands
+```sh
+npm run preview
+```
 
-All commands are run from the root of the project, from a terminal:
+Previews the production build locally.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## GitHub Pages
 
-## 👀 Want to learn more?
+Deployment is handled by `.github/workflows/deploy.yml`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+In GitHub, configure:
+
+1. Open the repository settings.
+2. Go to Pages.
+3. Set Source to GitHub Actions.
+
+The Astro config derives `site` and `base` from `GITHUB_REPOSITORY` during GitHub Actions builds. For a custom domain, set `SITE` and `BASE_PATH` in the workflow or repository environment variables.
+
+## Content Management
+
+Content is stored in Markdown files and can be edited through Decap CMS at `/admin/` once authentication is connected.
+
+Editable content lives in:
+
+- `src/content/pages/home.md`
+- `src/content/pages/about.md`
+- `src/content/projects/*.md`
+
+CMS configuration lives in `public/admin/config.yml`.
+
+After the GitHub repository exists, replace this placeholder:
+
+```yml
+repo: owner/repo
+```
+
+with the actual repository path, for example:
+
+```yml
+repo: paul/lisa-schank-portfolio
+```
+
+The site is ready for Decap CMS, but the production login still needs a GitHub OAuth flow. For GitHub Pages, use an external OAuth proxy such as a small Cloudflare Worker or another free OAuth proxy service. Local editing can use Decap's local backend.
