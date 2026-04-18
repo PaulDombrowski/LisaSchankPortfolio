@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import AboutLetterStorm from '../components/AboutLetterStorm.jsx';
 import HeroMotion from '../components/HeroMotion.jsx';
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../lib/paths.js';
 
 const home = await getEntry('pages', 'home');
 ---
@@ -15,9 +16,9 @@ const home = await getEntry('pages', 'home');
   </script>
 
   <nav class="corner-nav" aria-label="Primary">
-    <a class="corner top-left" href="/about/">Zur Person</a>
-    <a class="corner top-right" href="/projects/">Projekte</a>
-    <a class="corner bottom-left logo" href="/" aria-label="Lisa Schank home">lisa<br />schank</a>
+    <a class="corner top-left" href={withBase('/about/')}>Zur Person</a>
+    <a class="corner top-right" href={withBase('/projects/')}>Projekte</a>
+    <a class="corner bottom-left logo" href={withBase('/')} aria-label="Lisa Schank home">lisa<br />schank</a>
     <button class="corner bottom-right email-link" type="button" data-email="lisaschank@web.de" aria-label="E-Mail-Adresse kopieren">@</button>
     <span class="copy-status" aria-live="polite">Kopiert in den Zwischenspeicher: lisaschank@web.de</span>
   </nav>

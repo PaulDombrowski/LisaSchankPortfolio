@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { withBase } from '../../lib/paths.js';
 
 const projects = (await getCollection('projects')).sort((a, b) => {
   return (a.data.order ?? 0) - (b.data.order ?? 0);
@@ -9,9 +10,9 @@ const projects = (await getCollection('projects')).sort((a, b) => {
 
 <Layout title="Projekte | Lisa Schank Portfolio">
   <nav class="corner-nav" aria-label="Primary">
-    <a class="corner top-left" href="/">Start</a>
-    <a class="corner top-right" href="/about/">Zur Person</a>
-    <a class="corner bottom-left logo" href="/" aria-label="Lisa Schank home">lisa<br />schank</a>
+    <a class="corner top-left" href={withBase('/')}>Start</a>
+    <a class="corner top-right" href={withBase('/about/')}>Zur Person</a>
+    <a class="corner bottom-left logo" href={withBase('/')} aria-label="Lisa Schank home">lisa<br />schank</a>
   </nav>
 
   <main class="page-shell page-reveal">
@@ -20,14 +21,14 @@ const projects = (await getCollection('projects')).sort((a, b) => {
 
     <div class="project-list">
       {projects.map((project) => (
-        <a class="project" href={`/projects/${project.id}/`}>
+        <a class="project" href={withBase(`/projects/${project.id}/`)}>
           <span class="project-index">{String(project.data.order ?? 0).padStart(2, '0')}</span>
           <span class="project-title">{project.data.title}</span>
           <span class="project-meta">
             {project.data.year && <span>{project.data.year}</span>}
             {project.data.medium && <span>{project.data.medium}</span>}
           </span>
-          <img src={project.data.cover ?? '/uploads/placeholder.svg'} alt={project.data.coverAlt ?? ''} />
+          <img src={withBase(project.data.cover ?? '/uploads/placeholder.svg')} alt={project.data.coverAlt ?? ''} />
         </a>
       ))}
     </div>

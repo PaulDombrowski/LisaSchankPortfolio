@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { withBase } from '../../lib/paths.js';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -15,10 +16,10 @@ const { Content } = await render(project);
 ---
 
 <Layout title={`${project.data.title} | Lisa Schank Portfolio`}>
-  <a class="close-project" href="/projects/" aria-label="Projekt schließen und zurück zur Übersicht">×</a>
+  <a class="close-project" href={withBase('/projects/')} aria-label="Projekt schließen und zurück zur Übersicht">×</a>
 
   <main>
-    <a class="back" href="/projects/">Zurück zur Übersicht</a>
+    <a class="back" href={withBase('/projects/')}>Zurück zur Übersicht</a>
     <article>
       <header>
         <p class="meta">
@@ -28,7 +29,7 @@ const { Content } = await render(project);
         <h1>{project.data.title}</h1>
       </header>
 
-      <img src={project.data.cover ?? '/uploads/placeholder.svg'} alt={project.data.coverAlt ?? ''} />
+      <img src={withBase(project.data.cover ?? '/uploads/placeholder.svg')} alt={project.data.coverAlt ?? ''} />
 
       <div class="content">
         <Content />

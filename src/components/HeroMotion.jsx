@@ -1,4 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { withBase } from '../lib/paths.js';
 
 function Underline({ color = '#00d9ff', delay = 0 }) {
   return (
@@ -195,7 +196,7 @@ function LisaName({ line }) {
       >
         Lisa Schank
         <motion.span className="portrait-card" variants={portraitVariants} aria-hidden="true">
-          <img src="/Lisa-Portrait.jpeg" alt="" />
+          <img src={withBase('/Lisa-Portrait.jpeg')} alt="" />
         </motion.span>
       </motion.span>
       {rest}
@@ -261,7 +262,7 @@ function ScatterLisaName({ line }) {
       >
         <ScatterText text="Lisa Schank" />
         <motion.span className="portrait-card" variants={portraitVariants} aria-hidden="true">
-          <img src="/Lisa-Portrait.jpeg" alt="" />
+          <img src={withBase('/Lisa-Portrait.jpeg')} alt="" />
         </motion.span>
       </motion.span>
       <ScatterText text={rest} />

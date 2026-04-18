@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content';
 import AboutNameFall from '../components/AboutNameFall.jsx';
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../lib/paths.js';
 
 const about = await getEntry('pages', 'about');
 const { Content } = about ? await render(about) : { Content: null };
@@ -9,9 +10,9 @@ const { Content } = about ? await render(about) : { Content: null };
 
 <Layout title="Zur Person | Lisa Schank Portfolio" description={about?.data.intro}>
   <nav class="corner-nav" aria-label="Primary">
-    <a class="corner top-left" href="/">Start</a>
-    <a class="corner top-right" href="/projects/">Projekte</a>
-    <a class="corner bottom-left logo" href="/" aria-label="Lisa Schank home">lisa<br />schank</a>
+    <a class="corner top-left" href={withBase('/')}>Start</a>
+    <a class="corner top-right" href={withBase('/projects/')}>Projekte</a>
+    <a class="corner bottom-left logo" href={withBase('/')} aria-label="Lisa Schank home">lisa<br />schank</a>
   </nav>
 
   <div class="about-gradient" aria-hidden="true"></div>
@@ -27,7 +28,7 @@ const { Content } = about ? await render(about) : { Content: null };
     <div class="about-body">
       {Content && <div class="content reveal-content"><Content /></div>}
       <figure class="about-photo photo-portrait reveal-section" style="--reveal-delay: 0.48s;">
-        <img src="/Lisa-Portrait.jpeg" alt="Portrait von Lisa Schank" loading="eager" />
+        <img src={withBase('/Lisa-Portrait.jpeg')} alt="Portrait von Lisa Schank" loading="eager" />
       </figure>
     </div>
   </main>
